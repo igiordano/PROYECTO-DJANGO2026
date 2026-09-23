@@ -253,3 +253,179 @@ body {
 .footer a:hover {
     color: var(--on-primary);
 }
+
+
+/* Variables globales para personalizar colores rápidamente */
+:root {
+    --color-primario: #0d6efd;
+    --color-primario-hover: #0b5ed7;
+    --color-exito: #198754;
+    --color-exito-hover: #157347;
+    --color-fondo: #f8f9fa;
+    --color-texto: #212529;
+    --color-borde: #ced4da;
+    --sombra-tarjeta: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ==========================================================================
+   Contenedores y Layouts de Formulario
+   ========================================================================== */
+
+/* Tarjeta principal con efecto Glassmorphism */
+.form-card-glass {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    border-radius: 12px;
+    padding: 2.5rem;
+}
+
+/* Envoltorio principal para limitar ancho del formulario */
+.form-container {
+    max-width: 850px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+}
+
+/* Encabezado del formulario */
+.form-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 1rem;
+}
+
+.form-title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.5px;
+}
+
+/* Cuadrícula adaptable de 2 columnas */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+/* ==========================================================================
+   Campos e Inputs Generados por Django
+   ========================================================================== */
+
+.django-field-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/* Expande campos extensos (como descripción) a todo el ancho */
+.django-field-container.full-width {
+    grid-column: 1 / -1;
+}
+
+.django-field-container label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Estilos aplicados directamente a los inputs de Django */
+.django-field-container input[type="text"],
+.django-field-container input[type="number"],
+.django-field-container input[type="email"],
+.django-field-container input[type="file"],
+.django-field-container select,
+.django-field-container textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #1e293b;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.django-field-container input:focus,
+.django-field-container select:focus,
+.django-field-container textarea:focus {
+    border-color: #FF5A00 !important;
+    box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.15) !important;
+}
+
+.django-field-container textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* Textos de alerta y ayuda */
+.field-error-text {
+    color: #dc2626;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.field-help-text {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   Botones de Acción
+   ========================================================================== */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1.5rem;
+}
+
+.btn-cancel-custom {
+    background-color: #f1f5f9;
+    color: #475569;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-cancel-custom:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-submit-custom {
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.2);
+}
+
+.btn-submit-custom:hover {
+    background-color: #1e293b;
+    transform: translateY(-1px);
+}

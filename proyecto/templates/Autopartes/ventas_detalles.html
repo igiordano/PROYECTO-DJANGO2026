@@ -12,10 +12,10 @@
         
         <!-- Botones de Acción Generales -->
         <div style="display: flex; gap: 0.5rem;">
-            <a href="" class="btn-orange">
+            <a href="{% url 'Crear Ventas' %}" class="btn-orange">
                 + Nuevo Detalle
             </a>
-            <a href="" class="btn-orange" style="background-color: var(--secondary);">
+            <a href="{% url 'buscar_forma_de_pago' %}" class="btn-orange" style="background-color: var(--secondary);">
                 Buscar
             </a>
         </div>
@@ -45,12 +45,12 @@
                     
                     <!-- Botones de Acción por Fila -->
                     <td style="padding: 0.5rem; text-align: center; white-space: nowrap;">
-                        <a href="" 
+                        <a href="{% url 'actualizar_ventas_detalles' venta.id %}" 
                            class="btn-orange" 
                            style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background-color: var(--primary);">
                             Editar
                         </a> 
-                        <a href="" 
+                        <a href="{% url 'eliminar_ventas_detalles' venta.id %}" 
                            class="btn-orange" 
                            style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background-color: #dc2626;">
                             Eliminar

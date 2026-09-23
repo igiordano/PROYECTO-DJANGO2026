@@ -1,0 +1,107 @@
+{% extends 'Autopartes/index.html' %}
+{% load static %}
+
+{% block title %}Crear Detalle de Venta - Autopartes{% endblock title %}
+
+{% block codigoDinamico %}
+<div class="container" style="max-width: 850px; margin: 2.5rem auto; padding: 0 1rem;">
+    
+    <!-- Tarjeta Principal estilizada -->
+    <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01); border-radius: 12px; padding: 2.5rem;">
+        
+        <!-- Encabezado con Icono Vectorial -->
+        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 0.75rem; margin-bottom: 2rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 1rem;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FF5A00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 800; color: #0f172a; letter-spacing: 0.5px;">
+                CREAR DETALLE DE VENTA
+            </h1>
+        </div>
+
+        <!-- Formulario -->
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <!-- Errores Generales del Formulario -->
+            {% if form.non_field_errors %}
+                <div style="background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <!-- Disposición en Cuadrícula (Grid) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem;">
+                {% for field in form %}
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem; {% if field.name == 'observaciones' or field.name == 'nota' %}grid-column: 1 / -1;{% endif %}">
+                        
+                        <!-- Etiqueta del Campo -->
+                        <label for="{{ field.id_for_label }}" style="font-weight: 700; font-size: 0.85rem; color: #334155; text-transform: uppercase; letter-spacing: 0.5px;">
+                            {{ field.label }}
+                        </label>
+
+                        <!-- Widget del Campo -->
+                        <div class="venta-input-container">
+                            {{ field }}
+                        </div>
+
+                        <!-- Errores Específicos -->
+                        {% if field.errors %}
+                            <span style="color: #dc2626; font-size: 0.8rem; font-weight: 600;">
+                                {{ field.errors|striptags }}
+                            </span>
+                        {% endif %}
+
+                        <!-- Ayuda del Campo -->
+                        {% if field.help_text %}
+                            <span style="color: #64748b; font-size: 0.75rem;">
+                                {{ field.help_text }}
+                            </span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Botones de Acción -->
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 1rem; margin-top: 2.5rem; border-top: 1px solid #f1f5f9; padding-top: 1.5rem;">
+                <a href="{% url 'ventas_detalles' %}" style="background-color: #f1f5f9; color: #475569; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; display: inline-block; transition: all 0.2s ease-in-out;">
+                    Cancelar
+                </a>
+                
+                <button type="submit" style="background-color: #0f172a; color: #ffffff; border: none; padding: 0.75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease-in-out; box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.2);">
+                    Guardar Venta
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- Estilos para forzar el formateo dinámico de los inputs de Django -->
+<style>
+    .venta-input-container input,
+    .venta-input-container select,
+    .venta-input-container textarea {
+        width: 100% !important;
+        padding: 0.75rem 1rem !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        font-size: 0.95rem !important;
+        color: #1e293b !important;
+        background-color: #ffffff !important;
+        box-sizing: border-box !important;
+        outline: none !important;
+    }
+
+    .venta-input-container input:focus,
+    .venta-input-container select:focus,
+    .venta-input-container textarea:focus {
+        border-color: #FF5A00 !important;
+        box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.15) !important;
+    }
+</style>
+{% endblock codigoDinamico %}
