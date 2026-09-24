@@ -1,0 +1,61 @@
+[
+{
+  "model": "Autopartes.usuarios",
+  "pk": 1,
+  "fields": {
+    "nombre_usuario": "pepe",
+    "email_usuario": "peperacing@gmail.com"
+  }
+},
+{
+  "model": "Autopartes.productos",
+  "pk": 1,
+  "fields": {
+    "nombre_producto": "motor v6",
+    "marca_producto": "audi"
+  }
+},
+{
+  "model": "Autopartes.productos",
+  "pk": 2,
+  "fields": {
+    "nombre_producto": "motor v5",
+    "marca_producto": "bmw"
+  }
+},
+{
+  "model": "Autopartes.productos",
+  "pk": 3,
+  "fields": {
+    "nombre_producto": "frenos abs",
+    "marca_producto": "fiat"
+  }
+},
+{
+  "model": "Autopartes.productos",
+  "pk": 4,
+  "fields": {
+    "nombre_producto": "aceite",
+    "marca_producto": "bardal"
+  }
+},
+{
+  "model": "Autopartes.productos",
+  "pk": 6,
+  "fields": {
+    "nombre_producto": "filtro de aire",
+    "marca_producto": "pepes"
+  }
+},
+{
+  "model": "Autopartes.ventas_detalles",
+  "pk": 2,
+  "fields": {
+    "monto": 18500.75,
+    "fecha_venta": "2026-09-20",
+    "forma_de_pago": "Tarjeta",
+    "producto": 1,
+    "usuario": 1
+  }
+}
+]

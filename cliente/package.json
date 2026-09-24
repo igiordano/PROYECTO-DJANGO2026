@@ -1,0 +1,25 @@
+{
+  "name": "autopartes-cliente",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "App cliente (SPA) del sistema de autopartes. Consume la API REST Django /api/v1/.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9"
+  }
+}

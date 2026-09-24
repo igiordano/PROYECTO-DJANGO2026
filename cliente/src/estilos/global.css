@@ -1,0 +1,571 @@
+/*
+ * Hoja de estilos de la app cliente.
+ *
+ * A diferencia de las plantillas MVT originales, que llevan decenas de reglas
+ * en atributos `style`, aqui todo el estilo vive en clases reutilizables con
+ * variables de color definidas una sola vez.
+ */
+
+:root {
+  --azul: #0f172a;
+  --azul-suave: #1e293b;
+  --naranja: #ff5a00;
+  --gris: #64748b;
+  --borde: #e2e8f0;
+  --fondo: #f7f8fa;
+  --superficie: #ffffff;
+  --exito: #047857;
+  --error: #b91c1c;
+  --radio: 10px;
+  --sombra: 0 1px 3px rgba(15, 23, 42, 0.08);
+
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+  color: var(--azul);
+  background-color: var(--fondo);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--fondo);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--naranja);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code {
+  font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+  font-size: 0.85em;
+  background-color: #eef2f7;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+/* --- Barra de navegacion ------------------------------------------------ */
+
+.barra {
+  background-color: var(--azul);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.barra__interior {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.marca:hover {
+  text-decoration: none;
+}
+
+.marca__punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--naranja);
+}
+
+.navegacion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.navegacion a {
+  color: #cbd5e1;
+  padding-bottom: 2px;
+}
+
+.navegacion a.activo {
+  color: #ffffff;
+  border-bottom: 2px solid var(--naranja);
+}
+
+.barra__acciones {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.usuario {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+/* --- Estructura --------------------------------------------------------- */
+
+.contenido {
+  flex: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.pila {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.titulo {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+/* --- Portada del catalogo ---------------------------------------------- */
+
+.portada {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-suave) 100%);
+  color: #ffffff;
+  border-radius: var(--radio);
+  padding: 2.25rem;
+}
+
+.portada__etiqueta {
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  color: var(--naranja);
+  font-weight: 700;
+}
+
+.portada__titulo {
+  margin: 0 0 0.75rem;
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+
+.portada__texto {
+  margin: 0 0 1.5rem;
+  max-width: 62ch;
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
+.buscador {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-width: 460px;
+}
+
+.buscador__etiqueta {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.buscador input {
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  font-size: 0.95rem;
+}
+
+/* --- Tarjetas de producto ---------------------------------------------- */
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.tarjeta {
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.15rem;
+  box-shadow: var(--sombra);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.tarjeta__marca {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--naranja);
+  font-weight: 700;
+}
+
+.tarjeta__titulo {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.tarjeta__meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--gris);
+}
+
+.resumen-listado {
+  margin: 0;
+  color: var(--gris);
+  font-size: 0.9rem;
+}
+
+/* --- Bloques y tablas --------------------------------------------------- */
+
+.bloque {
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.25rem;
+  box-shadow: var(--sombra);
+}
+
+.bloque__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.bloque__titulo {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.bloque__cabecera .bloque__titulo {
+  margin-bottom: 0;
+}
+
+.tabla-envoltorio {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla th,
+.tabla td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: middle;
+}
+
+.tabla th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gris);
+  background-color: #f8fafc;
+}
+
+.tabla__numero {
+  text-align: right;
+}
+
+.tabla__vacia {
+  text-align: center;
+  color: var(--gris);
+  padding: 1.5rem;
+}
+
+.tenue {
+  color: var(--gris);
+  font-size: 0.85em;
+}
+
+.lista-simple {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lista-simple li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--borde);
+  font-size: 0.9rem;
+}
+
+/* --- Indicadores -------------------------------------------------------- */
+
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.indicador {
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--naranja);
+  border-radius: var(--radio);
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-shadow: var(--sombra);
+}
+
+.indicador__etiqueta {
+  font-size: 0.8rem;
+  color: var(--gris);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.indicador__valor {
+  font-size: 1.5rem;
+}
+
+/* --- Formularios -------------------------------------------------------- */
+
+.formulario {
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--sombra);
+}
+
+.formulario--linea {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.formulario--grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  align-items: end;
+}
+
+.formulario__titulo {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.formulario__ayuda,
+.formulario__pie {
+  margin: 0;
+  color: var(--gris);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 180px;
+  flex: 1;
+}
+
+.campo span {
+  font-size: 0.8rem;
+  color: var(--gris);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.campo input,
+.campo select {
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  color: var(--azul);
+}
+
+.campo--accion {
+  justify-content: flex-end;
+}
+
+.entrada-busqueda {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  min-width: 240px;
+}
+
+/* --- Botones ------------------------------------------------------------ */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #eef2f7;
+  color: var(--azul);
+  transition: filter 0.15s ease;
+}
+
+.boton:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.boton--naranja {
+  background-color: var(--naranja);
+  color: #ffffff;
+}
+
+.boton--fantasma {
+  background-color: transparent;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+.boton--contorno {
+  background-color: #ffffff;
+  border-color: var(--borde);
+}
+
+.boton--peligro {
+  background-color: #fee2e2;
+  color: var(--error);
+}
+
+.boton--ancho {
+  width: 100%;
+}
+
+/* --- Estados ------------------------------------------------------------ */
+
+.alerta {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: 1px solid;
+}
+
+.alerta--error {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #7f1d1d;
+}
+
+.alerta--ok {
+  background-color: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.estado {
+  color: var(--gris);
+  font-size: 0.95rem;
+}
+
+.paginacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.paginacion__estado {
+  font-size: 0.85rem;
+  color: var(--gris);
+}
+
+.acceso {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.acceso .formulario {
+  width: min(420px, 100%);
+}
+
+/* --- Pie ---------------------------------------------------------------- */
+
+.pie {
+  background-color: var(--azul);
+  color: #94a3b8;
+  margin-top: auto;
+}
+
+.pie__interior {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.pie__interior p {
+  margin: 0;
+}
+
+.pie code {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+}

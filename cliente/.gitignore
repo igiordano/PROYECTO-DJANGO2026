@@ -1,0 +1,27 @@
+# Dependencias instaladas por npm: se recuperan con `npm install`.
+node_modules/
+
+# Artefactos del build de Vite.
+dist/
+dist-ssr/
+
+# Cache y metadatos de herramientas.
+.vite/
+*.tsbuildinfo
+
+# Variables de entorno locales con posibles valores propios de cada maquina.
+.env
+.env.local
+.env.*.local
+
+# Editores y sistema operativo.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Registros.
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
