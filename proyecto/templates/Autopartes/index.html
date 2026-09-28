@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title> 
+        {% block title %}
+            Autopartes - Catálogo General
+        {% endblock title %}
+    </title>
+    <!-- Enlace a la hoja CSS local -->
+    <link rel="stylesheet" href="{% static 'Autopartes/styles.css' %}">
+</head>
+<body>
+
+    <!-- Navegación Principal -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'index' %}" class="brand-title">
+                Autopartes 
+            </a>
+
+            <ul class="nav-links">
+                <!-- Opción visible para todos los usuarios -->
+                <li><a href="{% url 'index' %}" style="color: var(--on-primary);">Home</a></li>
+
+                <!-- SECCIONES RESTRINGIDAS: Solo visibles si el usuario es Administrador / Staff -->
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                    <li><a href="{% url 'productos' %}">Productos</a></li>
+                    <li><a href="{% url 'usuarios' %}">Usuarios</a></li>
+                    <li><a href="{% url 'ventas_detalles' %}">Ventas Detalles</a></li>
+                {% endif %}
+
+                <!-- La opción de Registro solo se muestra a visitantes NO autenticados -->
+                {% if not request.user.is_authenticated %}
+                    <li><a href="{% url 'registro_cliente' %}">Registro</a></li>
+                {% endif %}
+
+                <!-- Menú desplegable de Sesión / Perfil -->
+                {% if request.user.is_authenticated %}
+                    <details style="position: relative; list-style: none;">
+                        <summary style="list-style: none; cursor: pointer; background-color: #ff5a00; color: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; display: inline-block;">
+                            👤 {{ request.user.first_name|default:request.user.username }} ▼
+                        </summary>
+                        <div style="position: absolute; right: 0; top: 120%; background-color: #ffffff; min-width: 180px; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.25); display: flex; flex-direction: column; z-index: 99999; overflow: hidden;">
+                            <a href="{% url 'perfil' %}" style="padding: 12px 16px; color: #0f172a; text-decoration: none; font-weight: 600; border-bottom: 1px solid #f1f5f9;">Mi Perfil</a>
+                            <a href="{% url 'logout_cliente' %}" style="padding: 12px 16px; color: #dc2626; text-decoration: none; font-weight: 600;">Cerrar sesión</a>
+                        </div>
+                    </details>
+                {% else %}
+                    <details style="position: relative; list-style: none;">
+                        <summary style="list-style: none; cursor: pointer; background-color: #ff5a00; color: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; display: inline-block;">
+                            Iniciar Sesión ▼
+                        </summary>
+                        <div style="position: absolute; right: 0; top: 120%; background-color: #ffffff; min-width: 180px; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.25); display: flex; flex-direction: column; z-index: 99999; overflow: hidden;">
+                            <a href="{% url 'login_admin' %}" style="padding: 12px 16px; color: #0f172a; text-decoration: none; font-weight: 600; border-bottom: 1px solid #f1f5f9;">Soy administrador</a>
+                            <a href="{% url 'login_cliente' %}" style="padding: 12px 16px; color: #0f172a; text-decoration: none; font-weight: 600;">Soy cliente</a>
+                        </div>
+                    </details>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Barra informativa -->
+    <div class="banner-info">
+        <span>
+            {% if request.user.is_authenticated %}
+                Bienvenido/a, <strong style="color: #FF5A00;">{{ request.user.first_name|default:request.user.username }}</strong>. Explora nuestros repuestos disponibles.
+            {% else %}
+                Bienvenido al catálogo general de autopartes. Explora nuestros repuestos disponibles. 
+                <details style="display: inline-block; position: relative; margin-left: 8px; vertical-align: middle;">
+                    <summary style="color: #FF5A00; font-weight: bold; text-decoration: underline; cursor: pointer; list-style: none;">
+                        Iniciar sesión ▼
+                    </summary>
+                    <div style="position: absolute; left: 0; top: 120%; background: #ffffff; min-width: 170px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 1px solid #e2e8f0; z-index: 1000; overflow: hidden;">
+                        <a href="{% url 'login_admin' %}" style="display: block; padding: 10px 14px; color: #0f172a; text-decoration: none; font-weight: 600; font-size: 0.85rem; border-bottom: 1px solid #f1f5f9;">Soy administrador</a>
+                        <a href="{% url 'login_cliente' %}" style="display: block; padding: 10px 14px; color: #0f172a; text-decoration: none; font-weight: 600; font-size: 0.85rem;">Soy cliente</a>
+                    </div>
+                </details>
+            {% endif %}
+        </span>
+    </div>
+
+    <!-- Bloque dinámico para vistas secundarias o formularios -->
+    {% block codigoDinamico %}
+    {% endblock codigoDinamico %}
+
+    <!-- Contenido Principal -->
+    <main class="main-container" style="max-width: 1100px; margin: 2rem auto; padding: 0 1rem;">
+
+        <!-- Hero Section -->
+        <section style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; padding: 2.5rem; border-radius: 12px; margin-bottom: 2.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+            <div style="max-width: 650px;">
+                <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 0; margin-bottom: 0.75rem; color: #ffffff;">
+                    Repuestos Originales y Alternativos de Alta Calidad
+                </h1>
+                <p style="color: #cbd5e1; font-size: 1rem; line-height: 1.5; margin-bottom: 1.5rem;">
+                    Encuentra rápidamente la pieza exacta que tu vehículo necesita. Garantía de compatibilidad y envíos a todo el país.
+                </p>
+                {% if request.user.is_staff %}
+                    <a href="{% url 'productos' %}" class="btn-orange" style="display: inline-block; padding: 0.75rem 1.5rem; text-decoration: none; font-weight: bold; border-radius: 6px;">
+                        Ver Catálogo Completo
+                    </a>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Categorías Destacadas -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">
+                Categorías Destacadas
+            </h2>
+            <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                
+                <div class="industrial-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FF5A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; text-transform: uppercase; margin-top: 0.5rem;">Frenos</h3>
+                        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">Pastillas, discos y cálipers.</p>
+                    </div>
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'productos' %}" style="margin-top: 1rem; font-weight: bold; color: #FF5A00; text-decoration: none;">Ver catálogo &rarr;</a>
+                    {% endif %}
+                </div>
+
+                <div class="industrial-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FF5A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M8 6h8M8 10h8M8 14h8M8 18h8"></path>
+                        </svg>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; text-transform: uppercase; margin-top: 0.5rem;">Suspensión</h3>
+                        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">Amortiguadores y espirales.</p>
+                    </div>
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'productos' %}" style="margin-top: 1rem; font-weight: bold; color: #FF5A00; text-decoration: none;">Ver catálogo &rarr;</a>
+                    {% endif %}
+                </div>
+
+                <div class="industrial-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FF5A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; text-transform: uppercase; margin-top: 0.5rem;">Motor</h3>
+                        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">Filtros, correas y bujías.</p>
+                    </div>
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'productos' %}" style="margin-top: 1rem; font-weight: bold; color: #FF5A00; text-decoration: none;">Ver catálogo &rarr;</a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Sección de Beneficios -->
+        <section style="background-color: #ffffff; border-radius: 12px; padding: 2rem; border: 1px solid #e2e8f0; margin-bottom: 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: center;">
+                <div>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: #0f172a; font-weight: 700;">Envío Garantizado</h4>
+                    <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #64748b;">Despachos rápidos a todo el país.</p>
+                </div>
+                <div>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: #0f172a; font-weight: 700;">Repuestos Certificados</h4>
+                    <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #64748b;">Piezas evaluadas con estándar de fábrica.</p>
+                </div>
+                <div>
+                    <h4 style="margin: 0; font-size: 1.1rem; color: #0f172a; font-weight: 700;">Soporte Técnico</h4>
+                    <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #64748b;">Asesoramiento previo a la compra.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="footer" style="background-color: #0f172a; color: #ffffff; padding: 3rem 1rem 1rem 1rem; margin-top: 3rem;">
+        <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+            <div>
+                <h5 style="font-size: 1.125rem; font-weight: bold; margin-bottom: 0.5rem; color: #ffffff;">AutoPartes UIOTEC</h5>
+                <p style="color: #9CA3AF; font-size: 0.875rem; margin-top: 0;">Encuentra las mejores autopartes para tu vehículo con garantía de calidad.</p>
+            </div>
+            <div>
+                <h5 style="font-size: 1.125rem; font-weight: bold; margin-bottom: 0.5rem; color: #ffffff;">Enlaces Rápidos</h5>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
+                    {% if request.user.is_staff %}
+                        <li><a href="{% url 'productos' %}" style="color: #cbd5e1; text-decoration: none;">Productos</a></li>
+                        <li><a href="{% url 'usuarios' %}" style="color: #cbd5e1; text-decoration: none;">Usuarios</a></li>
+                        <li><a href="{% url 'ventas_detalles' %}" style="color: #cbd5e1; text-decoration: none;">Ventas Detalles</a></li>
+                    {% else %}
+                        <li><a href="{% url 'index' %}" style="color: #cbd5e1; text-decoration: none;">Inicio</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div>
+                <h5 style="font-size: 1.125rem; font-weight: bold; margin-bottom: 0.5rem; color: #ffffff;">Contacto</h5>
+                <p style="color: #9CA3AF; font-size: 0.875rem; margin: 0;">Atención al Cliente: Lunes a Viernes</p>
+                <p style="color: #9CA3AF; font-size: 0.875rem; margin-top: 0.25rem;">soporte@autopartesuiotec.com</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; font-size: 0.75rem; color: #6B7280; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #1F2937;">
+            &copy; 2026 AutoPartes UIOTEC. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- JavaScript Local -->
+    <script src="{% static 'Autopartes/main.js' %}"></script>
+</body>
+</html>
