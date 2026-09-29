@@ -1,0 +1,145 @@
+{% extends 'Autopartes/index.html' %}
+{% load static %}
+
+{% block title %}Catálogo de Productos{% endblock title %}
+
+{% block codigoDinamico %}
+<style>
+    .catalog-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 15px;
+    }
+
+    /* Estilos de la barra de retorno */
+    .nav-panel-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1a202c;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+    }
+
+    .btn-back-panel {
+        display: inline-flex;
+        align-items: center;
+        background-color: #FF5100;
+        color: #ffffff !important;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none !important;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-back-panel:hover {
+        background-color: #E04700;
+    }
+
+    .catalog-main-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #111111;
+        margin-bottom: 25px;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .actions-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: auto;
+    }
+
+    .btn-detail {
+        display: block;
+        text-align: center;
+        padding: 9px 14px;
+        background-color: #ffffff;
+        color: #2d3748;
+        border: 1px solid #cbd5e0;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .btn-add-cart {
+        width: 100%;
+        padding: 10px 14px;
+        background-color: #FF5100;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+</style>
+
+<div class="catalog-wrapper">
+    <!-- BOTÓN VOLVER AL PANEL -->
+    {% if request.user.is_authenticated %}
+        <div class="nav-panel-bar">
+            <a href="{% url 'panel_cliente' %}" class="btn-back-panel">
+                ← Volver al panel
+            </a>
+            <span style="color: #ffffff; font-weight: 600;">Hola, {{ request.user.username }}</span>
+        </div>
+    {% endif %}
+
+    <h1 class="catalog-main-title">Catálogo de productos</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="product-grid">
+        {% for producto in productos %}
+            <div class="product-card">
+                <div>
+                    <div style="font-size: 0.8rem; font-weight: 700; color: #718096;">MARCA: {{ producto.marca_producto }}</div>
+                    <h2 style="font-size: 1.3rem; font-weight: 700; margin: 5px 0 10px 0;">{{ producto.nombre_producto }}</h2>
+                    <div style="font-size: 1.25rem; font-weight: 800; margin-bottom: 20px;">
+                        {% if producto.precio %}${{ producto.precio }}{% else %}Consultar precio{% endif %}
+                    </div>
+                </div>
+
+                <div class="actions-container">
+                    <a href="{% url 'detalle_producto' producto.id %}" class="btn-detail">Ver detalle</a>
+                    {% if producto.stock > 0 or producto.stock is None %}
+                        <form action="{% url 'agregar_al_carrito' producto.id %}" method="post" style="margin: 0;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-add-cart">Agregar al carrito</button>
+                        </form>
+                    {% else %}
+                        <button class="btn-add-cart" style="background-color: #a0aec0; cursor: not-allowed;" disabled>Sin stock</button>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay productos disponibles en este momento.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock codigoDinamico %}

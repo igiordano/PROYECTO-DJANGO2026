@@ -1,0 +1,97 @@
+{% extends 'Autopartes/index.html' %}
+{% load static %}
+
+{% block title %}Panel del Cliente{% endblock title %}
+
+{% block codigoDinamico %}
+<!-- Estilos personalizados para replicar exactamente el diseño -->
+<style>
+    .panel-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 15px;
+    }
+
+    .panel-card {
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
+        max-width: 480px;
+        width: 100%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+    }
+
+    .panel-title {
+        font-weight: 800;
+        font-size: 2.2rem;
+        color: #111111;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.5px;
+    }
+
+    .panel-subtitle {
+        color: #444444;
+        font-size: 1.05rem;
+        line-height: 1.4;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-panel-orange {
+        display: block;
+        width: 100%;
+        background-color: #FF5100;
+        color: #ffffff !important;
+        font-weight: 700;
+        font-size: 1rem;
+        text-align: left;
+        padding: 0.85rem 1.25rem;
+        border-radius: 10px;
+        text-decoration: none;
+        margin-bottom: 0.65rem;
+        border: none;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-panel-orange:hover {
+        background-color: #E04700;
+        color: #ffffff !important;
+        text-decoration: none;
+    }
+
+    .btn-panel-orange:active {
+        transform: scale(0.99);
+    }
+</style>
+
+<div class="panel-container">
+    <div class="panel-card">
+        <h1 class="panel-title">Panel del cliente</h1>
+        <p class="panel-subtitle">
+            Bienvenido al panel del cliente. Aquí puedes gestionar tu información y realizar compras.
+        </p>
+
+        <!-- Bloque para mensajes del sistema (éxito, error, etc.) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mb-3" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Botones de acción del panel -->
+        <div class="panel-buttons">
+            <a href="{% url 'catalogo' %}" class="btn-panel-orange">Ir al catálogo</a>
+            <a href="{% url 'carrito' %}" class="btn-panel-orange">Carrito</a>
+            <a href="{% url 'perfil_cliente' %}" class="btn-panel-orange">Mi perfil</a>
+            <a href="{% url 'mis_pedidos' %}" class="btn-panel-orange">Mis pedidos</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock codigoDinamico %}
+
+
