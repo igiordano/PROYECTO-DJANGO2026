@@ -1,0 +1,18 @@
+{% extends 'Autopartes/index.html' %}
+
+{% load static %}
+
+{% block title %}
+    ¡Gracias por tu mensaje!
+{% endblock title %}
+
+{% block codigoDinamico %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>¡Gracias por contactarnos!</h1>
+        <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo lo antes posible.</p>
+        <a href="{% url 'index' %}" class="btn btn-primary mt-4">Volver a la Página Principal</a>
+    </div>
+</div>
+{% endblock codigoDinamico %}
+

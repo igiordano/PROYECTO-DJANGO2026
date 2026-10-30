@@ -1,0 +1,67 @@
+{% extends 'Autopartes/index.html' %}
+{% load static %}
+
+{% block title %}
+  Contacto - AutoPartes UIOTEC
+{% endblock title %}
+{% block codigoDinamico %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Tarjeta contenedora -->
+            <div class="card shadow-sm border-0 p-4">
+                <h3 class="mb-4 fw-bold">Contacto y Consultas Técnicas</h3>
+                
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Campo Nombre -->
+                    <div class="mb-3">
+                        <label for="{{ form.nombre.id_for_label }}" class="form-label fw-semibold">Nombre*</label>
+                        {{ form.nombre }}
+                    </div>
+
+                    <!-- Campo Email -->
+                    <div class="mb-3">
+                        <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold">Correo electrónico*</label>
+                        {{ form.email }}
+                    </div>
+
+                    <!-- Campo Mensaje -->
+                    <div class="mb-3">
+                        <label for="{{ form.mensaje.id_for_label }}" class="form-label fw-semibold">Mensaje*</label>
+                        {{ form.mensaje }}
+                    </div>
+
+                    <!-- Botón naranja con buen padding -->
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn text-white py-2 fw-semibold" style="background-color: #ff6600; border-color: #ff6600;">
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery (requerido por Toastr) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Script de Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                toastr.success('{{ message }}');
+            {% elif message.tags == 'error' %}
+                toastr.error('{{ message }}');
+            {% elif message.tags == 'warning' %}
+                toastr.warning('{{ message }}');
+            {% elif message.tags == 'info' %}
+                toastr.info('{{ message }}');
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</script>
+{% endblock %}
